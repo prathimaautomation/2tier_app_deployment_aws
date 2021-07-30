@@ -50,8 +50,10 @@ sudo npm install pm2 -g
 #### Final Step (setting up a reverse proxy)
 - A reverse Proxy can easily be setup by entering and configuring the default file in nginx.
 ```
+cd ..
+cd ..
 cd etc/nginx/sites-available
-rm -rf default
+sudo rm -rf default
 sudo nano default
 ```
 - The default file should have the following present.
@@ -63,7 +65,7 @@ server{
        proxy_pass http://db-ip:3000/;   # This proxy Must be Instance Public IP Address
    	   }
        location /posts {
-       proxy_pass http://db:3000/posts;
+       proxy_pass http://db-ip:3000/posts;
        }
    }
 ```
@@ -123,7 +125,12 @@ net:
 
 ## Running Node App and MongoDb
 Everything is set up. The Last steps are the following.
-- Enter app node EC2 Instance an create env variable via `export DB_HOST' => 'mongodb://MongoDB_IP_ADDRESS:27017/posts`
+- Enter app node EC2 Instance an create env variable via 
+```
+cd # to make sure we are on the root page
+sudo echo 'export DB_HOST=mongodb://db-ip:27017/posts' >> .bashrc
+source ~/.bashrc  # to store env variable permanently
+```
 - Enter app folder and seed data via `node seeds/seed.js`
 - The app can now be seen running on the node app IP address with extension /Posts.
 
