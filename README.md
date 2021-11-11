@@ -62,10 +62,10 @@ server{
        listen 80;
        server_name _;
        location / {
-       proxy_pass http://db-ip:3000/;   # This proxy Must be Instance Public IP Address
+       proxy_pass http://app-ip:3000/;   # This proxy Must be Instance Public IP Address
    	   }
        location /posts {
-       proxy_pass http://db-ip:3000/posts;
+       proxy_pass http://app-ip:3000/posts;
        }
    }
 ```
